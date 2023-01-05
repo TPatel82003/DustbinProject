@@ -8,18 +8,22 @@ import urllib.request
 
 import random
 
+def DistancetoPercentange(Distance):
+    Fill = 35 - Distance
+    return Fill * 100 / 35
 
 def thingspeak_post(Distance):
     URl = "https://api.thingspeak.com/update?api_key="
     KEY = "QKBAEIL8OGG0O5N8"
-    HEADER = "&field1={}".format(Distance)
+    TrashLevel = DistancetoPercentange(Distance)
+    HEADER = "&field1={}&field2={}&field3={}".format(Distance ,TrashLevel , 100 - TrashLevel)
     NEW_URL = URl + KEY + HEADER
     print(NEW_URL)
     data = urllib.request.urlopen(NEW_URL)
     print(data)
 
 i = 1
-while i <= 1:
+while i <= 10:
     print("distance measurement in progress")
     GPIO.setup(TRIG, GPIO.OUT)
     GPIO.setup(ECHO, GPIO.IN)
@@ -38,5 +42,9 @@ while i <= 1:
     distance = round(distance, 2)
     print("distance:", distance, "cm")
     thingspeak_post(distance)
-    time.sleep(2)
+    time.sleep(40)
     i = i + 1
+
+
+
+  
