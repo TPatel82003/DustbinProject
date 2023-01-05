@@ -2,22 +2,20 @@ import RPi.GPIO as GPIO
 import time
 from gpiozero import Servo
 from time import sleep
-servo = Servo(25)
-val = -1
 TRIG = 23
 ECHO = 24
-GPIO.setmode(GPIO.BCM)
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11,GPIO.OUT)
+servo1 = GPIO.PWM(11,50)
 
 def LidOpenClose():
-    try:
-        while True:
-            servo.value = val
-            sleep(0.1)
-            val = val + 0.1
-            if val > 1:
-                val = -1
-    except KeyboardInterrupt:
-        print("Program stopped")
+    angle = float(input('Enter angle between 0 & 180: '))
+    servo1.ChangeDutyCycle(7)
+    time.sleep(5)
+    servo1.ChangeDutyCycle(0)
+
 
 while True:
     print("distance measurement in progress")
@@ -38,4 +36,4 @@ while True:
     distance = round(distance, 2)
     if(distance < 10):
         LidOpenClose()
-    time.sleep(1)
+    time.sleep(5)
