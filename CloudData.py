@@ -1,3 +1,6 @@
+"""
+    python code to write data on thingspeak using API
+"""
 import urllib.request
 import requests
 import threading

@@ -1,3 +1,4 @@
+""" python code that open/close lid of dustbin according object distance measurement """
 import RPi.GPIO as GPIO
 import time
 from gpiozero import Servo
@@ -11,6 +12,9 @@ GPIO.setup(11,GPIO.OUT)
 servo1 = GPIO.PWM(11,50)
 
 def LidOpenClose():
+    """
+        toggle lid of dustbin 
+    """
     angle = float(input('Enter angle between 0 & 180: '))
     servo1.ChangeDutyCycle(7)
     time.sleep(5)
@@ -18,6 +22,10 @@ def LidOpenClose():
 
 
 while True:
+    """
+        continuously checking ultrasonic sensor and delete object
+        and if object is closer than threshold toggle lid of dustbin
+    """
     print("distance measurement in progress")
     GPIO.setup(TRIG, GPIO.OUT)
     GPIO.setup(ECHO, GPIO.IN)
