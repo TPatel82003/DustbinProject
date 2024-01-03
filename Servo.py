@@ -1,4 +1,4 @@
-
+""" Python Code for running servo moter using aurdino """
 import RPi.GPIO as GPIO
 import time
 GPIO.setmode(GPIO.BOARD)
